@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="6febff8f-15d5-4c22-8934-1f416f7967d7" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="dataweave_pocFlow" doc:id="313f002d-0739-40a1-a10a-cfd21250502a" >
+		<http:listener doc:name="Listener" doc:id="aaa33795-efea-4caa-ad56-fe4d5c8fdf8f" config-ref="HTTP_Listener_config" path="/test"/>
+<!-- [STUDIO:"Transform Message"]		<ee:transform doc:name="Transform Message" doc:id="1ff125ce-42bd-420b-92f5-1d1dd24ff52d" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+&#45;&#45;-
+{
+	name: (payload.firstName
+default "") ++ " "++ payload.lastName,
+	countryCode: payload.countryCode,
+	mobile: payload.mobile,
+	address: (payload.city
+default "")++ " " ++ payload.country
+}&#93;&#93;></ee:set-payload>
+			</ee:message>
+		</ee:transform> [STUDIO] -->
+		<logger level="INFO" doc:name="Logger" doc:id="aca75c67-18b4-4836-be44-6050d1474d15" message='#["hello world"]'/>
+	</flow>
+</mule>

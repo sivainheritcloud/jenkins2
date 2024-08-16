@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="request" format="json">
+      <types:shape format="weave" example="examples/request_example.json"><![CDATA[%dw 2.0
+
+type request = {|
+  firstName: String, 
+  lastName: String, 
+  countryCode: String, 
+  mobile: String, 
+  city: String, 
+  country: String
+|} {"example": "{\\\"firstName\\\":\\\"siva\\\",\\\"lastName\\\":\\\"kumar\\\",\\\"countryCode\\\":\\\"+91\\\",\\\"mobile\\\":\\\"9177193654\\\",\\\"city\\\":\\\"vizag\\\",\\\"country\\\":\\\"INDIA\\\"}"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="response" format="json">
+      <types:shape format="weave" example="examples/response_example.json"><![CDATA[%dw 2.0
+
+type response = {|
+  name: String, 
+  countryCode: String, 
+  mobile: String, 
+  address: String
+|} {"example": "{\\\"name\\\":\\\"siva kumar\\\",\\\"countryCode\\\":\\\"+91\\\",\\\"mobile\\\":\\\"9177193654\\\",\\\"address\\\":\\\"vizag INDIA\\\"}"}
+
+]]></types:shape>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#1ff125ce-42bd-420b-92f5-1d1dd24ff52d">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="request"/>
+        </types:message>
+      </types:input-event>
+      <types:output-event>
+        <types:message>
+          <types:payload type="response"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+</types:mule>
